@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { Game } from './components/view/game'
+import { Footer } from './components/layout/footer'
 import './assets/css/app.css'
+import { Header } from './components/layout/header'
 
-function App() {
+function App() 
+{
   return (
     <> 
-        <h1 className="text-3xl font-bold underline text-amber-700">
-          Hello world!
-        </h1>
+      <Header />
+      <Game />
+      <Footer />
     </>
   )
 }
