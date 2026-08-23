@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 
 //interface dos valores
 interface IGameContext {
@@ -8,8 +8,11 @@ interface IGameContext {
   recursos: number;
   historico: string[];
   contadorAcoes: number;
+  comer: () => void;
+  descancar: () => void;
+  explorar: () => void;
+  trabalhar: () => void;
 }
-
 //Criando valores com a interface
 export const GameContext = React.createContext<IGameContext | undefined>(undefined);
 
@@ -23,10 +26,71 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const [comida, setComida] = useState(5);
   const [recursos, setRecursos] = useState(0);
   const [historico, sethistorico] = useState(['Hoje é mais um dia pessado para essa aventureiro']);
-  const [contadorAcoes, setContadorAcoes] = useState(0)
+  const [contadorAcoes, setContadorAcoes] = useState(0);
+
+  //Funcionalidades para cada funçäo do jogo
+
+  const comer = useCallback(() => {
+    if (comida <= 0){
+      return;
+    }
+
+    setComida(c => c - 1);
+    setVida(v => Math.min(v + 20, 100));
+    sethistorico(h => [...h, 'Vocë comeu e recuperou parte da sua vida']);
+    setContadorAcoes(a => a + 1);
+
+  }, [comida]);
+
+  const descancar = useCallback(() => {
+    setEnergia(e => Math.min(e + 30, 100));
+    setVida(v => v + 5);
+    sethistorico(h => [...h, 'Vocë descansou um pouco']);
+    setContadorAcoes(a => a + 1);
+  }, [energia]);
+
+  const explorar = useCallback(() => {
+    //30% de chanse de azar, e 40 de normal e 30% de sorte
+    const aventura = Math.floor(Math.random() * 5) + 1;
+
+    if(aventura == 1) {
+      setContadorAcoes(0);
+      setVida(v => Math.max(v - 10, 0));
+      sethistorico(h => [...h, 'Vocë acabou de se peder, e se machucou']);
+    } else if(aventura == 2){
+      setContadorAcoes(0);
+      setEnergia(e => Math.max(e - 10, 0));
+      sethistorico(h => [...h, 'Vocë correu muito e acabou ficando cansado']);
+    } else if(aventura == 3) {
+      setContadorAcoes(0);
+      setRecursos(r => r + 5);
+      sethistorico(h => [...h, 'Vocë acabou de achar recursos, dia de sorte']);
+    } else if(aventura == 4) {
+      setContadorAcoes(0);
+      setEnergia(e => Math.max(e - 20, 0));
+      setComida(c => Math.max(c - 1, 0));
+      sethistorico(h => [...h, 'Um lobo apareceu e vocë teve que fugir, gastando energia e comida']);
+    } else {
+      setContadorAcoes(0);
+      setRecursos(r => r + 10);
+      sethistorico(h => [...h, 'Vocë acabou de achar diamante, dia de sorte']);
+    }
+
+  }, [recursos]);
+
+  const trabalhar = useCallback(() => {
+    if(comida <= 0 || energia <= 0) return;
+
+      setContadorAcoes(a => a + 1);
+      setEnergia(e => Math.max(e - 25, 0));
+      setComida(c => Math.max(c - 2, 0));
+      setRecursos(r => r + 10);
+      sethistorico(h => [...h, 'Vocë acabou de achar diamante, dia de sorte']);
+
+  }, [recursos]);
 
   return (
-    <GameContext.Provider value={{vida, energia, comida, recursos, historico, contadorAcoes}}>
+    <GameContext.Provider value={{vida, energia, comida, recursos, historico, contadorAcoes, comer, descancar, explorar, trabalhar}}>
       {children}
     </GameContext.Provider>
   );
