@@ -66,7 +66,7 @@ export const Game = () =>
               </div>
 
               <div className="rounded-xl border-2 border-[#7a4f2d] bg-[#4a2f1d] text-[#f5e6cf] p-4 md:p-5">
-                <h2 className="text-2xl font-bold text-amber-100 text-center mb-3">Resultados</h2>
+                <h2 className="text-2xl font-bold text-amber-100 text-center mb-3">Sua historia</h2>
                 <p className="leading-relaxed text-center">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
