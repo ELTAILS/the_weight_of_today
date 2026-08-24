@@ -120,6 +120,23 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   }, [recursos, contadorAcoes]);
 
+  const vitoria = useCallback(() => {
+    if(recursos >= 50) {
+      sethistorico(h => [...h, 'Parabens vocë ganhou o jogo']);
+    }
+  }, [recursos]);
+
+  const derrota = useCallback(() => {
+    if(vida <= 0) {
+      sethistorico(h => [...h, 'Vocë morreu e perdeu o jogo']);
+    }
+
+    if(energia <= 0) {
+      sethistorico(h => [...h, 'Vocë ficou tão cansado que desmaiou e perdeu o jogo']);
+    }
+
+  }, [vida, energia]);
+
   return (
     <GameContext.Provider value={{vida, energia, comida, recursos, historico, contadorAcoes, comer, descancar, explorar, trabalhar}}>
       {children}

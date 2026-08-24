@@ -1,32 +1,26 @@
-# React + TypeScript + Vite
+![Logo do jogo](./src/assets/img/img_md.jpg)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+# The Weight of Today
 
-Currently, two official plugins are available:
+é um jogo de sobrevivência em que você precisa gerenciar seus recursos e tomar decisões estratégicas para sobreviver o maior tempo possível. O objetivo é acumular recursos suficientes para vencer o jogo, enquanto mantém sua vida e energia em níveis aceitáveis.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### como jogar: 
+  você pode clicar nos botões correspondentes às ações que deseja realizar. Cada ação terá um efeito diferente em seus recursos, vida e energia. Fique atento aos seus níveis de vida e energia para não perder o jogo.
 
-## React Compiler
+### existem 4 formas de jogar o jogo
+  trabalhar: você pode trabalhar para ganhar recursos, mas isso consome energia e pode deixar você mais cansado.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  comer: você pode comer para recuperar sua vida, mas isso consome comida.
 
-## Expanding the Oxlint configuration
+  descansar: você pode descansar para recuperar sua energia, mas isso consome tempo e não gera recursos.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+  explorar: você pode explorar o mundo para encontrar recursos e itens, mas isso pode ser perigoso e consumir energia.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+### Como ganhar o jogo: 
+  você precisa acumular 50 recursos para vencer o jogo. Se sua vida ou energia chegar a zero, você perde o jogo.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### como perder o jogo: 
+  se sua vida ou energia chegar a zero, você perde o jogo. Fique atento aos seus níveis de vida e energia para não perder o jogo.
+
+### sobre o projeto
+  este projeto foi desenvolvido como parte de um desafio de programação. O objetivo era criar um jogo simples de sobrevivência usando React e TypeScript. O código está disponível no GitHub para quem quiser estudar ou contribuir com melhorias.
