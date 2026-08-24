@@ -31,11 +31,13 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   //Funcionalidades para cada funçäo do jogo
 
   const comer = useCallback(() => {
-    if (comida <= 0){
+    if (comida <= 0 || comida >= 10){
+      setVida(v => Math.max(v - 10, 0));
+      sethistorico(h => [...h, 'Vocë comeu tanto que passou mal']);
       return;
     }
 
-    setComida(c => c - 1);
+    setComida(c => c + 1);
     setVida(v => Math.min(v + 20, 100));
     sethistorico(h => [...h, 'Vocë comeu e recuperou parte da sua vida']);
     setContadorAcoes(a => a + 1);

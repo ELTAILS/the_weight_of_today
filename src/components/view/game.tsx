@@ -60,17 +60,17 @@ const { vida, energia, comida, recursos, historico, comer, descancar, explorar, 
                 <h2 className="text-2xl text-amber-100 font-bold text-center mb-4">Painel de Missoes e Acoes</h2>
 
                 <div className="flex flex-wrap justify-center gap-3">
-                  <Acoes name="Comer" color="..." acao={comer} desabilitado={comida <= 0} />
-                  <Acoes name="Descansar" color="..." acao={descancar} desabilitado={false} />
-                  <Acoes name="Trabalhar" color="..." acao={trabalhar} desabilitado={comida <= 0 || energia <= 0} />
-                  <Acoes name="Explorar" color="..." acao={explorar} desabilitado={false} />
+                  <Acoes name="Comer" color="bg-yellow-500" acao={comer} desabilitado={comida <= 0} />
+                  <Acoes name="Descansar" color="bg-green-500" acao={descancar} desabilitado={false} />
+                  <Acoes name="Trabalhar" color="bg-red-500" acao={trabalhar} desabilitado={comida <= 0 || energia <= 0} />
+                  <Acoes name="Explorar" color="bg-purple-500" acao={explorar} desabilitado={false} />
                 </div>
               </div>
 
               <div className="rounded-xl border-2 border-[#7a4f2d] bg-[#4a2f1d] text-[#f5e6cf] p-4 md:p-5">
                 <h2 className="text-2xl font-bold text-amber-100 text-center mb-3">Sua historia</h2>
-                <p className="leading-relaxed text-center">
-                  {historico}
+                <p className="leading-relaxed text-center" style={{ whiteSpace: 'pre-line' }}>
+                  {historico.join('\n')}
                 </p>
               </div>
             </div>
