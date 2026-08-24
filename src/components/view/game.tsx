@@ -6,7 +6,7 @@ import { useGameContext } from "../GameContext";
 
 export const Game = () =>
 {
-const { vida, energia, comida, recursos, historico, comer, descancar, explorar, trabalhar } = useGameContext();
+const { vida, energia, comida, recursos, historico, comer, descancar, explorar, trabalhar, contadorAcoes, status } = useGameContext();
 
   return (
     <>
@@ -46,6 +46,9 @@ const { vida, energia, comida, recursos, historico, comer, descancar, explorar, 
                   <div className="w-full sm:w-55">
                     <Status name="Recursos" color="bg-blue-700/90" valor={recursos} />
                   </div>
+                  <div className="w-full sm:w-55">
+                    <Status name="acão" color="bg-purple-500" valor={contadorAcoes} />
+                  </div>
                 </div>
               </div>
 
@@ -60,10 +63,10 @@ const { vida, energia, comida, recursos, historico, comer, descancar, explorar, 
                 <h2 className="text-2xl text-amber-100 font-bold text-center mb-4">Painel de Missoes e Acoes</h2>
 
                 <div className="flex flex-wrap justify-center gap-3">
-                  <Acoes name="Comer" color="bg-yellow-500" acao={comer} desabilitado={comida <= 0} />
-                  <Acoes name="Descansar" color="bg-green-500" acao={descancar} desabilitado={false} />
-                  <Acoes name="Trabalhar" color="bg-red-500" acao={trabalhar} desabilitado={comida <= 0 || energia <= 0} />
-                  <Acoes name="Explorar" color="bg-purple-500" acao={explorar} desabilitado={false} />
+                  <Acoes name="Comer" color="bg-yellow-500" acao={comer} desabilitado={comida <= 0 || status !== 'jogando'} />
+                  <Acoes name="Descansar" color="bg-green-500" acao={descancar} desabilitado={status !== 'jogando'} />
+                  <Acoes name="Trabalhar" color="bg-red-500" acao={trabalhar} desabilitado={comida <= 0 || energia <= 0 || status !== 'jogando'} />
+                  <Acoes name="Explorar" color="bg-purple-500" acao={explorar} desabilitado={status !== 'jogando'} />
                 </div>
               </div>
 

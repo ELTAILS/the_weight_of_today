@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
 
 //interface dos valores
 interface IGameContext {
@@ -8,6 +8,7 @@ interface IGameContext {
   recursos: number;
   historico: string[];
   contadorAcoes: number;
+  status: 'jogando' | 'vitoria' | 'derrota';
   comer: () => void;
   descancar: () => void;
   explorar: () => void;
@@ -33,6 +34,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const comer = useCallback(() => {
 
     if(contadorAcoes == 2){
+      alert("Você tem que explorar agora!");
       return;
     }
 
@@ -57,6 +59,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const descancar = useCallback(() => {
 
     if(contadorAcoes == 2){
+      alert("Você tem que explorar agora!");
       return;
     }
 
@@ -73,6 +76,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const trabalhar = useCallback(() => {
       if(contadorAcoes == 2){
+        alert("Você tem que explorar agora!");
         return;
       }
 
@@ -120,25 +124,24 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   }, [recursos, contadorAcoes]);
 
-  const vitoria = useCallback(() => {
-    if(recursos >= 50) {
-      sethistorico(h => [...h, 'Parabens vocë ganhou o jogo']);
-    }
-  }, [recursos]);
+  const [status, setStatus] = useState<'jogando' | 'vitoria' | 'derrota'>('jogando');
 
-  const derrota = useCallback(() => {
-    if(vida <= 0) {
-      sethistorico(h => [...h, 'Vocë morreu e perdeu o jogo']);
-    }
+  useEffect(() => {
+    if (status !== 'jogando') return;
 
-    if(energia <= 0) {
-      sethistorico(h => [...h, 'Vocë ficou tão cansado que desmaiou e perdeu o jogo']);
+    if (recursos >= 50) {
+      setStatus('vitoria');
+      sethistorico(h => [...h, 'Parabéns, você venceu!']);
+      alert("Parabéns, você venceu!");
+    } else if (vida <= 0 || energia <= 0) {
+      setStatus('derrota');
+      sethistorico(h => [...h, 'Game Over! Você não sobreviveu.']);
+      alert("Game Over! Você não sobreviveu.");
     }
-
-  }, [vida, energia]);
+  }, [vida, energia, recursos, status]);
 
   return (
-    <GameContext.Provider value={{vida, energia, comida, recursos, historico, contadorAcoes, comer, descancar, explorar, trabalhar}}>
+    <GameContext.Provider value={{vida, energia, comida, recursos, historico, contadorAcoes, comer, descancar, explorar, trabalhar, status}}>
       {children}
     </GameContext.Provider>
   );
