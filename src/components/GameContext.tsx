@@ -31,25 +31,65 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   //Funcionalidades para cada funçäo do jogo
 
   const comer = useCallback(() => {
-    if (comida <= 0 || comida >= 10){
+
+    if(contadorAcoes == 2){
+      return;
+    }
+
+    if(comida <= 0){
+      sethistorico(h => [...h, 'Vocë não tem comida para comer']);
+      return;
+    }
+
+    if (comida >= 10){
       setVida(v => Math.max(v - 10, 0));
       sethistorico(h => [...h, 'Vocë comeu tanto que passou mal']);
       return;
     }
 
-    setComida(c => c + 1);
+    setComida(c => c - 1);
     setVida(v => Math.min(v + 20, 100));
     sethistorico(h => [...h, 'Vocë comeu e recuperou parte da sua vida']);
     setContadorAcoes(a => a + 1);
 
-  }, [comida]);
+  }, [comida, contadorAcoes]);
 
   const descancar = useCallback(() => {
+
+    if(contadorAcoes == 2){
+      return;
+    }
+
+    if(energia >= 100){
+      sethistorico(h => [...h, 'Vocë tem tanta energia que se recusa a descançar']);
+      return;
+    }
+
     setEnergia(e => Math.min(e + 30, 100));
-    setVida(v => v + 5);
+    setVida(v => Math.min(v + 5, 100));
     sethistorico(h => [...h, 'Vocë descansou um pouco']);
     setContadorAcoes(a => a + 1);
-  }, [energia]);
+  }, [energia, contadorAcoes]);
+
+  const trabalhar = useCallback(() => {
+      if(contadorAcoes == 2){
+        return;
+      }
+
+      if(energia <= 0) {
+        setVida(v => v - 5);
+        setRecursos(r => Math.max(r - 5, 0))
+        sethistorico(h => [...h, 'Vocë está com tanta sono que desmaiou e tem roubarão']);
+        return;
+      }
+
+      setContadorAcoes(a => a + 1);
+      setEnergia(e => Math.max(e - 25, 0));
+      setComida(c => Math.max(c + 1, 0));
+      setRecursos(r => r + 10);
+      sethistorico(h => [...h, 'Vocë acabou de achar diamante, dia de sorte']);
+
+  }, [comida, energia, contadorAcoes, recursos]);
 
   const explorar = useCallback(() => {
     //30% de chanse de azar, e 40 de normal e 30% de sorte
@@ -78,18 +118,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       sethistorico(h => [...h, 'Vocë acabou de achar diamante, dia de sorte']);
     }
 
-  }, [recursos]);
-
-  const trabalhar = useCallback(() => {
-    if(comida <= 0 || energia <= 0) return;
-
-      setContadorAcoes(a => a + 1);
-      setEnergia(e => Math.max(e - 25, 0));
-      setComida(c => Math.max(c - 2, 0));
-      setRecursos(r => r + 10);
-      sethistorico(h => [...h, 'Vocë acabou de achar diamante, dia de sorte']);
-
-  }, [recursos]);
+  }, [recursos, contadorAcoes]);
 
   return (
     <GameContext.Provider value={{vida, energia, comida, recursos, historico, contadorAcoes, comer, descancar, explorar, trabalhar}}>
@@ -99,7 +128,8 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 }
 
 // Hook costumizado
-export function useGameContext() {
+export function useGameContext()
+{
   const context = useContext(GameContext);
 
   if(!context){
