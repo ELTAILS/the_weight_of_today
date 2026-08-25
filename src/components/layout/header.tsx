@@ -1,4 +1,3 @@
-import { BTN } from "../btn"
 import logo  from "../../assets/img/logo_sem_fundo.png"
 
 export const Header = () =>
@@ -16,8 +15,8 @@ export const Header = () =>
               </h1>
 
               <div className="flex gap-5 ml-auto">
-                  <BTN name="Game" href="#" color="bg-green-500"></BTN>
-                  <BTN name="Regras" href="#" color="bg-red-500"></BTN>
+                <a href="#" className={`inline-block px-6 py-2 rounded-2xl text-lg font-semibold transition-transform duration-200 cursor-pointer ease-out hover:scale-[1.03] bg-red-500`}>Rules</a>
+                <a href="#" className={`inline-block px-6 py-2 rounded-2xl text-lg font-semibold transition-transform duration-200 cursor-pointer ease-out hover:scale-[1.03] bg-green-500`}>Game</a>
               </div>
 
           </header>

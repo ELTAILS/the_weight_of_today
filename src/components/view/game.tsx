@@ -1,7 +1,7 @@
-import { Status } from "../status";
+import { Status } from "../Status";
 import logoStatus from "../../assets/img/fundo-status.jpg"
 import logoAcoes from "../../assets/img/fundo-acoes.jpg"
-import { Acoes } from "../acoes";
+import { Acoes } from "../Btn";
 import { useGameContext } from "../GameContext";
 
 export const Game = () =>
